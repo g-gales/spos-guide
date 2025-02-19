@@ -22,7 +22,7 @@ body {
 }
 
 .guide-container {
-  width: 950px;
+  width: 90%;
   margin: 15px auto;
 }
 
@@ -41,18 +41,18 @@ h2 {
 button {
   width: 100%;
   padding: 12px;
-  margin: 10px 0;
+  margin: 0;
   font-size: 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #2f722e;
   color: white;
   transition: background 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #3f6041;
 }
 
 /* Navigation Buttons */
@@ -95,23 +95,23 @@ button:hover {
 
 /* Tile Styling */
 .tile {
-  background: #007bff;
+  background: #2f722e;
   color: white;
-  padding: 15px;
+  padding: 35px 15px;
   text-align: center;
   font-size: 1.3rem;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s;
-  aspect-ratio: 1; /* Ensures the tile is square */
+  /* aspect-ratio: 1; Ensures the tile is square */
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20%;
+  flex: 0 1 auto;
 }
 
 .tile:hover {
-  background: #0056b3;
+  background: #3f6041;
 }
 
 /* Accordion Styling */
@@ -125,10 +125,10 @@ button:hover {
 }
 
 .accordion-header {
-  background: #007bff;
+  background: #2f722e;
   color: white;
-  padding: 15px 10px;
-  margin-bottom: 0;
+  padding: 20px 15px;
+  margin: 0;
   width: 100%;
   text-align: left;
   border: none;
@@ -137,8 +137,28 @@ button:hover {
   transition: background 0.3s;
 }
 
+.accordion-header-complete {
+  background: #a8bdaf;
+  color: #878f87;
+  cursor: auto;
+}
+
+.accordion-header-complete:hover {
+  background: #a8bdaf;
+}
+
 .accordion-header:hover {
-  background: #0056b3;
+  background: #3f6041;
+}
+
+.accordion-header-full {
+  display: flex;
+  align-items: center;
+}
+
+.accordion-checkbox {
+  width: 1.7rem;
+  aspect-ratio: 1;
 }
 
 .accordion-content {
