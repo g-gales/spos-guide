@@ -1,36 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
+import Accordion from "./Accordion";
 import "../styles/styles.css";
 
 const FinalGuide = ({ guideSteps, resetGuide, goBack, currentPath }) => {
   const steps = guideSteps?.steps || [];
 
-  const [openIndex, setOpenIndex] = useState(null); // Track which accordion is open
+  const finalPath = [...currentPath];
+  let breadcrumbs = "";
 
-  const toggleAccordion = (index) => {
-    setOpenIndex(openIndex === index ? null : index); // Open/close logic
-  };
+  finalPath.map((path, index) => {
+    return ( breadcrumbs = breadcrumbs + path + (index+1 < finalPath.length ? " -> " : ""));
+  });
 
   console.log("Final guide data:", guideSteps);
 
   return (
     <div className="final-guide-container">
       <h2>Guide Instructions</h2>
+      <p>{breadcrumbs}</p>
       {steps.length > 0 ? (
         <div className="accordion">
           {steps.map((step, index) => (
-            <div key={index} className="accordion-item">
-              <button
-                className="accordion-header"
-                onClick={() => toggleAccordion(index)}>
-                {step.summary}
-              </button>
-              <div
-                className={`accordion-content ${
-                  openIndex === index ? "open" : ""
-                }`}>
-                {step.details}
-              </div>
-            </div>
+            <Accordion step={step} index={index} className="accordion-item" />
           ))}
         </div>
       ) : (
