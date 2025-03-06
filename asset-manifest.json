@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/spos-guide/static/css/main.be250c30.css",
+    "main.js": "/spos-guide/static/js/main.7c3d1456.js",
+    "index.html": "/spos-guide/index.html",
+    "main.be250c30.css.map": "/spos-guide/static/css/main.be250c30.css.map",
+    "main.7c3d1456.js.map": "/spos-guide/static/js/main.7c3d1456.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be250c30.css",
+    "static/js/main.7c3d1456.js"
+  ]
+}
