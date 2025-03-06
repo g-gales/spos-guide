@@ -1,8 +1,19 @@
+# sPOS Guide for Saje Shopify
+
+This project was created by Grayson Gales for training purposes with Shopify at Saje Natural Wellness.\
+Use this guide to create customized step-by-step processes for completing common sPOS stucks.\
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Deploying a New Build
+
+This site is hosted on GitHub pages, and deploys from the gh-pages branch. To update the build within this branch, you can run:
+
+### `npm run deploy`
+
+## Default React Available Scripts
 
 In the project directory, you can run:
 
