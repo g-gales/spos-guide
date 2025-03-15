@@ -1,5 +1,5 @@
 /* General Page Styling */
-body {
+body, #root {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   margin: 0;
@@ -11,9 +11,10 @@ body {
 }
 
 /* Main Container */
-.guide-container,
-.final-guide-container {
-  background: #fff;
+.guide-container {
+  width: 800px; /* Fixed width for consistency */
+  max-width: 90%;
+  background-color: #fff;
   padding: 20px;
   padding-bottom: 40px;
   border-radius: 10px;
@@ -21,14 +22,13 @@ body {
   text-align: center;
 }
 
-.guide-container {
-  width: 90%;
-  margin: 15px auto;
-}
-
 .final-guide-container {
-  width: 90%;
-  margin: 0 auto;
+  width: 700px; /* Reduced width for better readability */
+  max-width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
 }
 
 /* Title */
@@ -37,34 +37,32 @@ h2 {
   color: #333;
 }
 
-/* Buttons (General) */
-button {
-  width: 100%;
-  padding: 12px;
-  margin: 0;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #2f722e;
-  color: white;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background-color: #3f6041;
-}
-
 /* Navigation Buttons */
 .navigation-buttons {
   display: flex;
-  justify-content: space-evenly;
-  margin-top: 20px;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 25px;
 }
 
 .back-button,
 .home-button {
   flex-basis: 35%;
+  width: 100%;
+  margin: 0;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #2f722e;
+  color: white;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:active, .home-button.active {
+  transform: scale(.96);
 }
 
 .back-button {
@@ -83,35 +81,62 @@ button:hover {
   background-color: #218838;
 }
 
+/* Breadcrumb Navigation */
+.breadcrumbs {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.breadcrumbs span {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.breadcrumbs span:hover {
+  color: #0056b3;
+}
+
 /* Tile Grid Styling */
 .tile-container {
   display: flex;
-  flex-flow: row nowrap;
-  margin-top: 20px;
+  flex-wrap: wrap;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   gap: 15px;
+  margin-top: 20px;
 }
 
 /* Tile Styling */
 .tile {
-  background: #2f722e;
+  background-color: #2f722e;
   color: white;
-  padding: 35px 15px;
+  width: 200px; /* Fixed tile size */
+  height: 150px; /* Fixed height */
+  padding: 20px;
   text-align: center;
   font-size: 1.3rem;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s;
-  /* aspect-ratio: 1; Ensures the tile is square */
+  transition: background-color .7s ease-in-out, opacity .7s ease-in-out, transform .7s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 1 auto;
+  opacity: 0;
+  transform: translateX(100px);
 }
 
 .tile:hover {
-  background: #3f6041;
+  background-color: #3f6041;
+}
+
+/* Tile animation */
+.tile.show {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Accordion Styling */
@@ -120,35 +145,38 @@ button:hover {
 }
 
 .accordion-item {
-  margin-bottom: 10px;
+  background-color: white;
+  margin-bottom: 15px; /* Increased spacing */
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.accordion-header {
-  background: #2f722e;
+button.accordion-header { 
+  background-color: #2f722e;
   color: white;
-  padding: 20px 15px;
+  padding: 23px 15px;
   margin: 0;
   width: 100%;
   text-align: left;
   border: none;
+  border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
-.accordion-header-complete {
-  background: #a8bdaf;
+button.accordion-header.complete {
+  background-color: #a8bdaf;
   color: #878f87;
   cursor: auto;
 }
 
-.accordion-header-complete:hover {
-  background: #a8bdaf;
+button.accordion-header.complete:hover {
+  background-color: #a8bdaf;
 }
 
-.accordion-header:hover {
-  background: #3f6041;
+button.accordion-header:hover {
+  background-color: #3f6041;
 }
 
 .accordion-header-full {
@@ -159,6 +187,7 @@ button:hover {
 .accordion-checkbox {
   width: 1.7rem;
   aspect-ratio: 1;
+  margin-right: 10px;
 }
 
 .accordion-content {
@@ -167,8 +196,8 @@ button:hover {
   opacity: 0;
   transform: scaleY(0);
   transform-origin: top;
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-  background: #f9f9f9;
+  transition: max-height 0.2s ease-out, opacity 0.2s ease-out;
+  background-color: #f9f9f9;
   padding: 0 1rem;
   overflow: hidden;
   max-height: 0;
@@ -181,18 +210,19 @@ button:hover {
   max-height: 100%;
 }
 
-/* Breadcrumb Navigation (if needed) */
-.breadcrumbs {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 15px;
-}
+@media (max-width: 600px) {
+  .guide-container, .final-guide-container {
+    width: 95%;
+    padding: 15px;
+  }
 
-.breadcrumbs span {
-  color: #007bff;
-  cursor: pointer;
-}
+  .tile {
+    width: 100%;
+    height: auto;
+  }
 
-.breadcrumbs span:hover {
-  text-decoration: underline;
+  .accordion-header {
+    padding: 20px;
+    font-size: 0.9rem;
+  }
 }

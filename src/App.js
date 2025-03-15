@@ -6,19 +6,26 @@ import "./styles/styles.css";
 const App = () => {
   const [selectedGuide, setSelectedGuide] = useState(null);
   const [currentPath, setCurrentPath] = useState([]);
+  const [tilesVisible, setTilesVisible] = useState(true);
 
   // Function to navigate deeper into guideData
   const navigateTo = (path, guide) => {
-    setSelectedGuide(guide);
-    setCurrentPath(path);
-    console.log("Current Path:", currentPath);
-    console.log("Selected Guide:", selectedGuide);
+    setTilesVisible(false);
+    setTimeout(() => {
+      setSelectedGuide(guide);
+      setCurrentPath(path);
+      setTilesVisible(true);
+    }, 850);
   };
 
   // Reset function to go back to the main menu
   const resetGuide = () => {
-    setSelectedGuide(null);
-    setCurrentPath([]);
+    setTilesVisible(false);
+    setTimeout(() => {
+      setSelectedGuide(null);
+      setCurrentPath([]);
+      setTilesVisible(true);
+    }, 100);
   };
 
   // Find guide steps based on selection
@@ -51,10 +58,12 @@ const App = () => {
           break;
         }
       }
-      setCurrentPath(previousPath);
-      setSelectedGuide(guide);
-      console.log("Current Path:", currentPath);
-      console.log("Selected Guide:", selectedGuide);
+      setTilesVisible(false);
+      setTimeout(() => {
+        setCurrentPath(previousPath);
+        setSelectedGuide(guide);
+        setTilesVisible(true);
+      }, 100);
     } else {
       // If we're at the first step or home, reset to the home screen
       resetGuide();
@@ -65,11 +74,11 @@ const App = () => {
     <div className="guide-container">
       {!selectedGuide ? (
         <>
-          <h2>Select a Guide</h2>
+          <h2>Select Your Guide</h2>
           <div className="tile-container">
             {Object.keys(guideData).map((category) => (
               <button
-                className="tile"
+                className={`tile ${tilesVisible ? "show" : ""}`}
                 key={category}
                 onClick={() => navigateTo([category], guideData[category])}>
                 {category}
@@ -86,11 +95,11 @@ const App = () => {
         />
       ) : (
         <>
-          <h2>Select an Option</h2>
+          <h2>Find Your Solution</h2>
           <div className="tile-container">
             {Object.keys(selectedGuide).map((option) => (
               <button
-                className="tile"
+                className={`tile ${tilesVisible ? "show" : ""}`}
                 key={option}
                 onClick={() =>
                   navigateTo([...currentPath, option], selectedGuide[option])

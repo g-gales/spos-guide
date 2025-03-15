@@ -26,8 +26,8 @@ const Accordion = ({ step, index }) => {
           className="accordion-checkbox"
         ></input>
         <button
-          className={`"accordion-header" ${
-            !stepComplete ? "" : "accordion-header-complete"
+          className={`accordion-header ${
+            !stepComplete ? "" : "complete"
           }`}
           onClick={() => toggleAccordion(index)}
           disabled={stepComplete}

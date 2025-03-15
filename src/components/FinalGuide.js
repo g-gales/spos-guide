@@ -16,8 +16,8 @@ const FinalGuide = ({ guideSteps, resetGuide, goBack, currentPath }) => {
 
   return (
     <div className="final-guide-container">
-      <h2>Guide Instructions</h2>
-      <p>{breadcrumbs}</p>
+      <h2>Your Custom sPOS Guide</h2>
+      <p className="breadcrumbs">{breadcrumbs}</p>
       {steps.length > 0 ? (
         <div className="accordion">
           {steps.map((step, index) => (

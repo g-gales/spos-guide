@@ -35,7 +35,7 @@ const sharedData = {
   chooseRefundMethod: {
     summary: "Choose Which Method to Refund",
     details:
-      "Ask the CM if they would prefer a refund to a Physical Gift Card or eGift Card. Choose the corresponding tab at the top. Use this new gift card to pay for any exchanging products. Note - eGift cards require an email attached to the CM account.",
+      "Ask the CM if they would prefer a refund to a Physical Gift Card, eGift Card, or Cash (if eligible). Choose the corresponding tab at the top, and use this as a credit to pay for any exchanging products. Note - eGift cards require an email attached to the CM account.",
   },
   enterDetails: {
     summary: "Complete the ‘Returns Reason’",
@@ -77,10 +77,10 @@ const sharedData = {
     details:
       "Find the value of the returning diffuser to determine credit available for a new diffuser. Reminder, if a diffuser is used and under warranty, they can only be exchanged, refunds are not permitted. The full credit must be used.",
   },
-  unverifiedDiffuserMethod: {
+  unverifiedCashMethod: {
     summary: "Use 'Cash' Option",
     details:
-      "To simplify the experience for the CM, use the 'Cash' option for an Unverified Diffuser return.",
+      "To simplify the experience for the CM, use the 'Cash' option for an Unverified Diffuser return. Don't actually give the CM this cash, but instead use the refunded amount as the payment towards a new diffuser.",
   },
   recordValue: {
     summary: "Record Value and RCA",
@@ -179,13 +179,21 @@ const sharedData = {
   updateRewards: {
     summary: "Fill Out Healthy Rewards Update Form",
     details: "Gather all the relevant information and complete the Healthy Rewards Update Form."
+  },
+  verifyPrice: {
+    summary: "Verify Purchase Price",
+    details: "Verify the price the returning product was purchased at. Record this price, and close out of this transaction. Do not proceed with the refund with this transaction."
+  },
+  adjustPrice: {
+    summary: "Adjust the Price",
+    details: "Using the price from the Gift Receipt, adjust the price of the returning product to match the price it was originally purchased at."
   }
 };
 
 const guideData = {
   "Returns & Exchanges": {
     Returns: {
-      Unverified: {
+      "No Receipt": {
         Diffusers: {
           Used: {
             "Product in Shopify": {
@@ -195,7 +203,7 @@ const guideData = {
                   sharedData.loadCM,
                   sharedData.loadProduct,
                   sharedData.openUnverified,
-                  sharedData.unverifiedDiffuserMethod,
+                  sharedData.unverifiedCashMethod,
                   sharedData.enterDetails,
                   sharedData.toggleRestock,
                   sharedData.completeRefund,
@@ -216,7 +224,7 @@ const guideData = {
                   sharedData.loadCM,
                   sharedData.createCustomSKU,
                   sharedData.openUnverified,
-                  sharedData.unverifiedDiffuserMethod,
+                  sharedData.unverifiedCashMethod,
                   sharedData.enterDetails,
                   sharedData.toggleRestock,
                   sharedData.completeRefund,
@@ -237,7 +245,7 @@ const guideData = {
                 sharedData.loadCM,
                 sharedData.loadProduct,
                 sharedData.openUnverified,
-                sharedData.unverifiedDiffuserMethod,
+                sharedData.unverifiedCashMethod,
                 sharedData.enterDetails,
                 sharedData.toggleRestock,
                 sharedData.completeRefund,
@@ -250,7 +258,7 @@ const guideData = {
                 sharedData.loadCM,
                 sharedData.createCustomSKU,
                 sharedData.openUnverified,
-                sharedData.unverifiedDiffuserMethod,
+                sharedData.unverifiedCashMethod,
                 sharedData.enterDetails,
                 sharedData.toggleRestock,
                 sharedData.completeRefund,
@@ -309,19 +317,19 @@ const guideData = {
           },
         },
       },
-      Verified: {
+      Receipt: {
         Diffusers: {
           Used: {
             "Claimed as Defecive / Damaged": {
               steps: [
                 sharedData.diffuserFunctional,
+                sharedData.diffuserExchangeValue,
                 sharedData.scanReceipt,
                 sharedData.clickReturn,
                 sharedData.addReturnProducts,
                 sharedData.toggleRestock,
                 sharedData.enterDetails,
                 sharedData.completeRefund,
-                sharedData.diffuserExchangeValue,
                 sharedData.loadCM,
                 sharedData.sellNewProduct,
               ],
@@ -352,6 +360,138 @@ const guideData = {
           ],
         },
       },
+      "Gift Receipt": {
+        Diffusers: {
+          Used: {
+            "Product in Shopify": {
+              "Claimed as Defecive / Damaged": {
+                steps: [
+                  sharedData.diffuserFunctional,
+                  sharedData.scanReceipt,
+                  sharedData.verifyPrice,
+                  sharedData.loadCM,
+                  sharedData.loadProduct,
+                  sharedData.adjustPrice,
+                  sharedData.openUnverified,
+                  sharedData.unverifiedCashMethod,
+                  sharedData.enterDetails,
+                  sharedData.toggleRestock,
+                  sharedData.completeRefund,
+                  sharedData.recordValue,
+                  sharedData.loadCM,
+                  sharedData.sellNewDiffuser,
+                  sharedData.removeValue,
+                ],
+              },
+              "Claimed as Functional": {
+                steps: [sharedData.noDiffuserReturn],
+              },
+            },
+            "Product Not in Shopify": {
+              "Claimed as Defecive / Damaged": {
+                steps: [
+                  sharedData.diffuserFunctional,
+                  sharedData.scanReceipt,
+                  sharedData.verifyPrice,
+                  sharedData.loadCM,
+                  sharedData.createCustomSKU,
+                  sharedData.openUnverified,
+                  sharedData.unverifiedCashMethod,
+                  sharedData.enterDetails,
+                  sharedData.toggleRestock,
+                  sharedData.completeRefund,
+                  sharedData.recordValue,
+                  sharedData.loadCM,
+                  sharedData.sellNewDiffuser,
+                  sharedData.removeValue,
+                ],
+              },
+              "Claimed as Functional": {
+                steps: [sharedData.noDiffuserReturn],
+              },
+            },
+          },
+          Unused: {
+            "Product in Shopify": {
+              steps: [
+                sharedData.scanReceipt,
+                sharedData.verifyPrice,
+                sharedData.loadCM,
+                sharedData.loadProduct,
+                sharedData.adjustPrice,
+                sharedData.openUnverified,
+                sharedData.chooseRefundMethod,
+                sharedData.enterDetails,
+                sharedData.toggleRestock,
+                sharedData.completeRefund
+              ],
+            },
+            "Product Not in Shopify": {
+              steps: [
+                sharedData.scanReceipt,
+                sharedData.verifyPrice,
+                sharedData.loadCM,
+                sharedData.createCustomSKU,
+                sharedData.openUnverified,
+                sharedData.chooseRefundMethod,
+                sharedData.enterDetails,
+                sharedData.toggleRestock,
+                sharedData.completeRefund,
+                sharedData.recordValue,
+                sharedData.removeValue,
+              ],
+            },
+          },
+        },
+        "Non Diffuser": {
+          "Unverified Exchanges": {
+            "Product in Shopify": {
+              steps: [
+                sharedData.loadProduct,
+                sharedData.loadCM,
+                sharedData.openUnverified,
+                sharedData.chooseRefundMethod,
+                sharedData.enterDetails,
+                sharedData.completeRefund,
+                sharedData.sellNewProduct,
+              ],
+            },
+            "Product Not in Shopify": {
+              steps: [
+                sharedData.createCustomSKU,
+                sharedData.loadCM,
+                sharedData.openUnverified,
+                sharedData.chooseRefundMethod,
+                sharedData.enterDetails,
+                sharedData.completeRefund,
+                sharedData.sellNewProduct,
+              ],
+            },
+          },
+          "Unverified Refunds": {
+            "Product in Shopify": {
+              steps: [
+                sharedData.loadProduct,
+                sharedData.loadCM,
+                sharedData.openUnverified,
+                sharedData.chooseRefundMethod,
+                sharedData.enterDetails,
+                sharedData.completeRefund,
+              ],
+            },
+            "Product Not in Shopify": {
+              steps: [
+                sharedData.createCustomSKU,
+                sharedData.loadCM,
+                sharedData.openUnverified,
+                sharedData.chooseRefundMethod,
+                sharedData.enterDetails,
+                sharedData.completeRefund,
+              ],
+            },
+          },
+        },
+      },
     },
     Exchanges: {
       steps: [sharedData.noExchanges],
@@ -376,7 +516,7 @@ const guideData = {
             sharedData.completeGiftCardRedemption,
           ],
         },
-        "Affilate (Dark Green Leafy) Gift Card": {
+        "Affiliate (Dark Green Leafy) Gift Card": {
           steps: [
             sharedData.openCardiganRedeem,
             sharedData.scanAffiliateCard,
@@ -413,7 +553,7 @@ const guideData = {
             sharedData.completeGiftCardRedemption,
           ],
         },
-        "Affilate (Dark Green Leafy) Gift Card": {
+        "Affiliate (Dark Green Leafy) Gift Card": {
           steps: [
             sharedData.openCardiganRedeem,
             sharedData.scanAffiliateCard,
